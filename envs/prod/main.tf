@@ -31,7 +31,7 @@ module "api" {
   source     = "../../modules/ecs-service"
   name       = "${local.name}-api"
   cluster_id = aws_ecs_cluster.main.id
-  image      = "ghcr.io/OWNER/crewclaro-api:${var.image_tag}"
+  image      = "ghcr.io/jonathan-nobrega/crewclaro-api:${var.image_tag}"
   port       = 4000
   desired    = 3
   subnet_ids = module.network.private_subnet_ids
@@ -45,7 +45,7 @@ module "translator" {
   source     = "../../modules/ecs-service"
   name       = "${local.name}-translator"
   cluster_id = aws_ecs_cluster.main.id
-  image      = "ghcr.io/OWNER/crewclaro-translator:${var.image_tag}"
+  image      = "ghcr.io/jonathan-nobrega/crewclaro-translator:${var.image_tag}"
   subnet_ids = module.network.private_subnet_ids
   environment = {
     REDIS_URL            = module.redis.redis_url
