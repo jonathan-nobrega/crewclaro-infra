@@ -1,0 +1,16 @@
+name: terraform-plan
+on:
+  pull_request:
+    paths: ["envs/**", "modules/**"]
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: { env: [staging, prod] }
+    defaults:
+      run: { working-directory: "envs/${{ matrix.env }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform init -backend=false
+      - run: terraform validate
